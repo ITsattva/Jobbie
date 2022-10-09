@@ -7,7 +7,7 @@ CREATE TABLE Person
     PRIMARY KEY (person_id)
 );
 
-CREATE TABLE Skills
+CREATE TABLE Skill
 (
     skill_id  SERIAL       NOT NULL,
     name      VARCHAR(256) NOT NULL,

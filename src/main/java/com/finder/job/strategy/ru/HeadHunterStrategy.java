@@ -7,7 +7,7 @@ import java.util.List;
 
 public class HeadHunterStrategy implements Strategy {
     @Override
-    public List<Vacancy> getVacanciesFromSite(String url) {
+    public List<Vacancy> getVacanciesFromSite() {
         return null;
     }
 }

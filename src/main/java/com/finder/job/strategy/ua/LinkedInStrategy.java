@@ -7,7 +7,7 @@ import java.util.List;
 
 public class LinkedInStrategy implements Strategy {
     @Override
-    public List<Vacancy> getVacanciesFromSite(String url) {
+    public List<Vacancy> getVacanciesFromSite() {
         return null;
     }
 }

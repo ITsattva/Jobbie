@@ -2,7 +2,7 @@ package com.finder.job.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "person")
 @Entity
-@Log4j
+@Log4j2
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

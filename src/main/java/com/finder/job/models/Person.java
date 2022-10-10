@@ -2,6 +2,7 @@ package com.finder.job.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.extern.log4j.Log4j2;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "person")
 @Entity
 @Log4j2
+@Accessors(chain = true)
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -52,8 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    protected void configure(AuthenticationManagerBuilder auth) {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     protected DaoAuthenticationProvider daoAuthenticationProvider() {
@@ -62,10 +63,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         return daoAuthenticationProvider;
     }
-
-
-
-
 
 
 }

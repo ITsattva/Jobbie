@@ -2,7 +2,6 @@ package com.finder.job.strategy.ua;
 
 import com.finder.job.models.Vacancy;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -25,27 +24,27 @@ class WorkUaStrategyTest {
 
     @Test
     public void testGetWorkUaVacanciesWithMainstreamQuery() throws IOException {
-        List<Vacancy> vacancyList = workUaStrategy.getVacanciesFromSite("javascript", "", null);
+        List<Vacancy> vacancyList = workUaStrategy.getVacancies("javascript");
         assertTrue(vacancyList.size() >= 14);
 
     }
 
     @Test
     public void testGetWorkUaVacanciesWithOnlyOnePage() throws IOException {
-        List<Vacancy> vacancyList = workUaStrategy.getVacanciesFromSite("java angular", "", null);
+        List<Vacancy> vacancyList = workUaStrategy.getVacancies("java angular");
         assertTrue(vacancyList.size() < 14);
     }
 
     @Test
     public void testGetWorkUaVacanciesWithWrongQuery() throws IOException {
-        List<Vacancy> vacancyList = workUaStrategy.getVacanciesFromSite("qwerty", "", null);
+        List<Vacancy> vacancyList = workUaStrategy.getVacancies("qwerty");
         assertEquals(0, vacancyList.size());
     }
 
     @Test
     public void speedTest() throws IOException {
         long before = System.currentTimeMillis();
-        workUaStrategy.getVacanciesFromSite("javascript junior", "", null);
+        workUaStrategy.getVacancies("javascript junior");
         long after = System.currentTimeMillis();
         System.out.println("Method has been finished in :" + (after-before) + " ms");
     }

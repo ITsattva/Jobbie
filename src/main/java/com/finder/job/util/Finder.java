@@ -4,11 +4,11 @@ import com.finder.job.models.Vacancy;
 import com.finder.job.strategy.Strategy;
 import com.finder.job.strategy.ru.HeadHunterStrategy;
 import com.finder.job.strategy.ua.*;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.*;
 
 @Component
@@ -43,21 +43,21 @@ public class Finder {
         }
     }
 
-    public List<Vacancy> getVacancies(String region) {
+    public List<Vacancy> getVacancies(String region, String query) throws IOException {
         List<Vacancy> vacancies = new ArrayList<>();
 
         switch (region) {
             case "UA" -> {
                 for (String source : uaURLs) {
                     tuneUpStrategy(source);
-                    vacancies.addAll(strategy.getVacanciesFromSite());
+                    vacancies.addAll(strategy.getVacancies(query));
                 }
                 return vacancies;
             }
             case "RU" -> {
                 for (String source : ruURLs) {
                     tuneUpStrategy(source);
-                    vacancies.addAll(strategy.getVacanciesFromSite());
+                    vacancies.addAll(strategy.getVacancies(query));
                 }
                 return vacancies;
             }

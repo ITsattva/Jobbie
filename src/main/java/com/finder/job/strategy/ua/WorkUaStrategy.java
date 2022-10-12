@@ -1,8 +1,9 @@
 package com.finder.job.strategy.ua;
 
-import com.finder.job.mapper.VacancyMapper;
+import com.finder.job.mapper.VacancyMapperHTML;
 import com.finder.job.models.Vacancy;
 import com.finder.job.strategy.Strategy;
+import com.finder.job.util.NetworkHelper;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -11,32 +12,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.finder.job.util.NetworkUtils.getResponseFromURL;
 
-public class WorkUaStrategy implements Strategy {
-    private final VacancyMapper mapper;
+public class WorkUaStrategy implements Strategy<String> {
+    private final VacancyMapperHTML<Vacancy, Document, Element> mapper;
+    private final NetworkHelper<Object> networkHelper;
     private final String SITE = "https://www.work.ua/ru/";
     private final String POSITION_PARAM = "jobs-%s/";
     private final String PAGE_PARAM = "?page=%d";
 
     public WorkUaStrategy() {
+        this.networkHelper = new NetworkHelper<>(Object.class);
         mapper = new WorkUaMapper();
     }
 
     public List<Vacancy> getVacancies(String position) throws IOException {
         String url = generateUrl(position, null);
-        Document document = getResponseFromURL(url);
+        Document document = networkHelper.getPageFromURL(url);
         int pagesCount = mapper.getPagesCount(document);
         List<Vacancy> vacancies = new ArrayList<>();
 
         if(pagesCount > 0) {
             for(int i = 1; i <= pagesCount; i++){
                 String pageUrl = generateUrl(position, i);
-                Document page = getResponseFromURL(pageUrl);
-                vacancies.addAll(mapper.parseHtmlIntoVacancies(page));
+                Document page = networkHelper.getPageFromURL(pageUrl);
+                vacancies.addAll(mapper.parseVacanciesListFrom(page));
             }
         } else {
-            vacancies.addAll(mapper.parseHtmlIntoVacancies(document));
+            vacancies.addAll(mapper.parseVacanciesListFrom(document));
         }
 
         return vacancies;
@@ -50,14 +52,14 @@ public class WorkUaStrategy implements Strategy {
         }
     }
 
-    private class WorkUaMapper implements VacancyMapper {
+    private class WorkUaMapper implements VacancyMapperHTML<Vacancy, Document, Element> {
         @Override
-        public List<Vacancy> parseHtmlIntoVacancies(Document html) {
+        public List<Vacancy> parseVacanciesListFrom(Document html) throws IOException {
             Elements rawVacancies = html.select("div.card.card-hover.card-visited.wordwrap.job-link");
 
             List<Vacancy> vacancies = new ArrayList<>();
             for(Element element : rawVacancies) {
-                Vacancy vacancy = mapper.parseVacancyFromElement(element);
+                Vacancy vacancy = mapper.parseVacancyFrom(element);
                 vacancies.add(vacancy);
             }
 
@@ -65,7 +67,7 @@ public class WorkUaStrategy implements Strategy {
         }
 
         @Override
-        public Vacancy parseVacancyFromElement(Element element){
+        public Vacancy parseVacancyFrom(Element element){
             String title = element.select("h2 > a").text().replace(" \uFEFF", "");
             String company = element.select("div.add-top-xs > span > b").text();
             Element distanceFromCenter = element.select("span.distance-block.unclickable-inner-block.text-blue-link").last();

@@ -5,11 +5,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 @Component
-public interface VacancyMapper {
-    List<Vacancy> parseHtmlIntoVacancies(Document html);
-    Vacancy parseVacancyFromElement(Element element);
-    Integer getPagesCount(Document document);
+public interface VacancyMapper<V, D, E> {
+    List<V> parseVacanciesListFrom(D html) throws IOException;
+    Vacancy parseVacancyFrom(E element) throws IOException;
 }

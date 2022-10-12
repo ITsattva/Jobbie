@@ -25,6 +25,7 @@ public class WorkUaStrategy implements Strategy<String> {
         mapper = new WorkUaMapper();
     }
 
+    @Override
     public List<Vacancy> getVacancies(String position) throws IOException {
         String url = generateUrl(position, null);
         Document document = networkHelper.getPageFromURL(url);
@@ -44,6 +45,7 @@ public class WorkUaStrategy implements Strategy<String> {
         return vacancies;
     }
 
+    @Override
     public String generateUrl(String area, Integer page){
         if(page != null) {
             return SITE + (String.format(POSITION_PARAM, area)) + (String.format(PAGE_PARAM, page));

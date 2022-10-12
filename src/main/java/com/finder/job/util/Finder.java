@@ -15,12 +15,18 @@ import java.util.*;
 @NoArgsConstructor
 @Log4j2
 public class Finder {
+    //    private final List<String> uaURLs = new ArrayList<>(Arrays.asList(
+//            "Djinni",
+//            "DOU",
+//            "WorkUa",
+//            "RabotaUa",
+//            "LinkedIn"
+//    ));
     private final List<String> uaURLs = new ArrayList<>(Arrays.asList(
             "Djinni",
-            "DOU",
             "WorkUa",
-            "RabotaUa",
-            "LinkedIn"));
+            "RabotaUa"
+    ));
     private final List<String> ruURLs = new ArrayList<>(Arrays.asList(
             "HeadHunter"
     ));
@@ -31,7 +37,7 @@ public class Finder {
         this.strategy = strategy;
     }
 
-    public void tuneUpStrategy(String source) {
+    private void tuneUpStrategy(String source) {
         switch (source) {
             case "Djinni" -> setStrategy(new DjinniStrategy());
             case "DOU" -> setStrategy(new DouStrategy());

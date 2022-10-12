@@ -42,8 +42,10 @@ class RabotaUaStrategyTest {
     @Test
     public void speedTest() throws IOException {
         long before = System.currentTimeMillis();
-        rabotaUaStrategy.getVacancies("javascript junior");
+        List<Vacancy> vacancies = rabotaUaStrategy.getVacancies("javascript");
         long after = System.currentTimeMillis();
-        System.out.println("Method has been finished in :" + (after-before) + " ms");
+        System.out.println("Rabota.ua speed test has been completed!");
+        System.out.println(vacancies.size() + " vacancies has been found in: " + (after-before) + " ms");
+        System.out.printf("Average time for one vacancy is: %.0f ms", ((double)(after-before)/vacancies.size()));
     }
 }

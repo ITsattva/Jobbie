@@ -26,7 +26,7 @@ public class DjinniStrategy implements Strategy<String> {
     }
 
     @Override
-    public List<Vacancy> getVacancies(String position) throws IOException {
+    public List<Vacancy> getVacancies(String position) throws IOException {//todo refactor duplicated code
         String url = generateUrl(position, null);
         Document document = networkHelper.getPageFromURL(url);
         int pagesCount = mapper.getPagesCount(document);
@@ -72,8 +72,6 @@ public class DjinniStrategy implements Strategy<String> {
         @Override
         public Vacancy parseVacancyFrom(Element element) throws IOException {
             String title = element.select("div.list-jobs__title > a.profile > span").text();
-//            Elements tit = element.select("div.list-jobs__title > a.profile > span");
-//            System.out.println("T I T L E :   " + tit);
             String company = element.select("div.list-jobs__details > div > a").first().text();
             String town = element.select("div.list-jobs__details > div > span.location-text").text();
             String innerLink = element.select("div.list-jobs__title > a.profile").attr("href").substring(6);

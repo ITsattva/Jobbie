@@ -3,13 +3,12 @@ package com.finder.job.strategy.ua;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.finder.job.mapper.VacancyMapper;
-import com.finder.job.models.Vacancy;
+import com.finder.job.models.vacancy.RabotaUaVacancy;
+import com.finder.job.models.vacancy.Vacancy;
 import com.finder.job.pojo.RabotaUaPOJO;
 import com.finder.job.pojo.RabotaUaPOJO.VacancyShortDto;
 import com.finder.job.strategy.Strategy;
 import com.finder.job.util.NetworkHelper;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -75,7 +74,7 @@ public class RabotaUaStrategy implements Strategy<URL> {
 
         @Override
         public Vacancy parseVacancyFrom(VacancyShortDto element) throws IOException {
-            Vacancy vacancy = new Vacancy();
+            Vacancy vacancy = new RabotaUaVacancy();
             vacancy.setTitle(element.getName());
             vacancy.setCompany(element.getCompanyName());
             vacancy.setDate(element.getDateTxt());
@@ -83,12 +82,7 @@ public class RabotaUaStrategy implements Strategy<URL> {
             Integer salary = element.getSalary();
             vacancy.setSalary(salary == 0 ? "По результатам собеседования" : salary.toString());//todo from to
             vacancy.setTown(element.getCityName());
-
-//            URL query = new URL(API + (String.format(ID_PARAM, element.getId())));//todo need to improve this part of algorithm
-//
-//            System.out.println(query);
-//            String link = objectMapper.readTree(query).get("contactUrl").toString();
-//            vacancy.setLink(link);
+            vacancy.setLink(API + (String.format(ID_PARAM, element.getId())));//todo dangerous moment;
 
             return vacancy;
         }

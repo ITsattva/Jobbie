@@ -1,7 +1,8 @@
 package com.finder.job.strategy.ua;
 
 import com.finder.job.mapper.VacancyMapperHTML;
-import com.finder.job.models.Vacancy;
+import com.finder.job.models.vacancy.Vacancy;
+import com.finder.job.models.vacancy.WorkUaVacancy;
 import com.finder.job.strategy.Strategy;
 import com.finder.job.util.NetworkHelper;
 import org.jsoup.nodes.Document;
@@ -88,7 +89,7 @@ public class WorkUaStrategy implements Strategy<String> {
             String salary = salaryElement != null ? salaryElement.text().replaceAll("[ , ]", "") : "По результатам собеседования";
             String description = element.select("p").text();
 
-            return new Vacancy(title, company, town, description, salary, SITE + innerLink, date);
+            return new WorkUaVacancy(title, company, town, description, salary, SITE + innerLink, date);
         }
 
         @Override

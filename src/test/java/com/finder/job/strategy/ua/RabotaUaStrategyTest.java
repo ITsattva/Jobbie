@@ -1,7 +1,6 @@
 package com.finder.job.strategy.ua;
 
-import com.finder.job.models.Vacancy;
-import com.finder.job.pojo.RabotaUaPOJO;
+import com.finder.job.models.vacancy.Vacancy;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -14,10 +13,11 @@ class RabotaUaStrategyTest {
 
     @Test
     public void getResponseFromAPI() throws IOException {
-        List<Vacancy> vacancyList = rabotaUaStrategy.getVacancies("Java");
+        List<Vacancy> vacancyList = rabotaUaStrategy.getVacancies("Swift");
 
         System.out.println("Vacancies size: " + vacancyList.size());
         System.out.println(vacancyList);
+        vacancyList.forEach(x -> System.out.println(x.getLink()));
     }
 
     @Test

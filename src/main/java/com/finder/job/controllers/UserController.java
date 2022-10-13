@@ -17,4 +17,9 @@ public class UserController {
     public String searchPage(){
         return "search";
     }
+
+    @GetMapping("/result")
+    public String resultPage(){
+        return "result";
+    }
 }

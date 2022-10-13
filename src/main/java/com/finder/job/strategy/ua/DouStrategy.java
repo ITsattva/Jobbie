@@ -15,13 +15,13 @@ import java.util.List;
 
 public class DouStrategy implements Strategy<String> {
     private final VacancyMapperHTML<Vacancy, Document, Element> mapper;
-    private final NetworkHelper<Object> networkHelper;
+    private final NetworkHelper networkHelper;
     private final String SITE = "https://jobs.dou.ua/vacancies/";
     private final String POSITION_PARAM = "?search=%s";
     private final String PAGE_PARAM = "&page=%d";
 
     public DouStrategy() {
-        this.networkHelper = new NetworkHelper<>(Object.class);
+        this.networkHelper = new NetworkHelper();
         mapper = new DouMapper();
     }
 

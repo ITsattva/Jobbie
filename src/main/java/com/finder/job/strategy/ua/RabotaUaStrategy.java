@@ -19,7 +19,7 @@ import java.util.List;
 public class RabotaUaStrategy implements Strategy<URL> {
     private final VacancyMapper<Vacancy, RabotaUaPOJO, VacancyShortDto> vacancyMapper;
     private final ObjectMapper objectMapper;
-    private final NetworkHelper<RabotaUaPOJO> networkHelper;
+    private final NetworkHelper networkHelper;
     private final String API = "https://ua-api.rabota.ua/";
     private final String POSITION_PARAM = "vacancy/search?keyWords=%s";
     //every additional word should be started with %20
@@ -29,7 +29,7 @@ public class RabotaUaStrategy implements Strategy<URL> {
 
     public RabotaUaStrategy() {
         vacancyMapper = new RabotaUaMapper();
-        networkHelper = new NetworkHelper<>(RabotaUaPOJO.class);
+        networkHelper = new NetworkHelper();
         objectMapper = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }

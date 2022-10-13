@@ -8,8 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping({"", "/"})
 public class UserController {
 
-    @GetMapping("/homePage")
+    @GetMapping("/homepage")
     public String homePage(){
         return "homePage";
+    }
+
+    @GetMapping("/search")
+    public String searchPage(){
+        return "search";
     }
 }

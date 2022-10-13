@@ -35,7 +35,7 @@ public class AuthController {
 
         System.out.println("AuthController method login");
 
-        return "login";
+        return "/auth/login";
     }
 
     @GetMapping("/success")
@@ -52,7 +52,7 @@ public class AuthController {
         System.out.println("AuthController method registrationPerson");
         System.out.println(form.toString());
 
-        return "registration";
+        return "/auth/registration";
     }
     @PostMapping("/registration")
     public String registrationPersonDone(@Valid @ModelAttribute("form") PersonRegistrationForm form, BindingResult bindingResult) {

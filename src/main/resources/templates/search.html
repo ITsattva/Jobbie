@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Jobbie - search</title>
+</head>
+<body>
+<div class="search_block"></div>
+<img class="logo" th:src="@{logo.png}"><br/>
+    <h4 class="search_label">Включить глубокий поиск?</label>
+    <i onclick="myFunction(this)" class="fa fa-thumbs-o-up" toggle="true"></i>
+
+    <form class="example" action="action_page.php">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+
+    <script>
+        function myFunction(x) {
+            x.classList.toggle("fa-thumbs-up");
+
+            // Get the snackbar DIV
+            var y = document.getElementById("snackbar");
+
+            // Add the "show" class to DIV
+            y.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function(){ y.className = y.className.replace("show", ""); }, 3000);
+        }
+    </script>
+
+    <div id="snackbar">Поиск может занять некоторое время..</div>
+</body>
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color:rgb(61, 69, 77);
+    }
+
+    .search_block{
+        padding: 100px;
+    }
+
+    .logo {
+        width: 420px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .search_label {
+        text-align: center;
+    }
+
+    .search_field {
+        height: 20px;
+        width: 360px;
+        margin-top: 15px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    input[type=text] {
+        height: 15px;
+        width: 220px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
+
+    input[type=text]:focus {
+        width: 37%;
+    }
+
+    .fa {
+        font-size: 20px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .fa:hover {
+
+        /* padding: 16px 32px;
+        font-size: 16px;
+        margin: 4px 2px;
+        opacity: 0.6; */
+    }
+
+    /* Style buttons */
+    .btn {
+        background-color: DodgerBlue;
+        border: none;
+        color: white;
+        font-size: 25px;
+        text-align: center;
+        cursor: pointer;
+        margin: 4px 2px;
+        padding: 16px, 32px;
+    }
+
+    /* Darker background on mouse-over */
+    .btn:hover {
+        background-color: RoyalBlue;
+    }
+
+
+    /* The snackbar - position it at the bottom and in the middle of the screen */
+    #snackbar {
+        visibility: hidden; /* Hidden by default. Visible on click */
+        width: 420px; /* Set a default minimum width */
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #333; /* Black background color */
+        color: #fff; /* White text color */
+        text-align: center; /* Centered text */
+        border-radius: 2px; /* Rounded borders */
+        display: block;
+        position:-webkit-sticky; /* Sit on top of the screen */
+        padding: 16px; /* Padding */
+        z-index: 1; /* Add a z-index if needed */
+        bottom: 30px; /* 30px from the bottom */
+    }
+
+    /* Show the snackbar when clicking on a button (class added with JavaScript) */
+    #snackbar.show {
+        visibility: visible; /* Show the snackbar */
+
+        /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+        However, delay the fade out process for 2.5 seconds */
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    /* Animations to fade the snackbar in and out */
+    @-webkit-keyframes fadein {
+        from {bottom: 0; opacity: 0;}
+        to {bottom: 30px; opacity: 1;}
+    }
+
+    @keyframes fadein {
+        from {bottom: 0; opacity: 0;}
+        to {bottom: 30px; opacity: 1;}
+    }
+
+    @-webkit-keyframes fadeout {
+        from {bottom: 30px; opacity: 1;}
+        to {bottom: 0; opacity: 0;}
+    }
+
+    @keyframes fadeout {
+        from {bottom: 30px; opacity: 1;}
+        to {bottom: 0; opacity: 0;}
+    }
+
+</style>
+</html>

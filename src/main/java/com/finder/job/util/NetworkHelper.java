@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.net.URL;
 
 @Component
-public class NetworkHelper<T> {
+public class NetworkHelper {
     private final ObjectMapper objectMapper;
-    private final Class<T> type;
+//    private final Class<T> type;
 
-    public NetworkHelper(Class<T> type) {
+    public NetworkHelper() {
         this.objectMapper = new ObjectMapper();
-        this.type = type;
+//        this.type = type;
     }
 
     public Document getPageFromURL(String url) throws IOException {
@@ -25,11 +25,11 @@ public class NetworkHelper<T> {
                 .get();
     }
 
-    public T getPOJOfromUrl(String url) throws IOException {//todo later
-        URL link = new URL(url);
-        T pojo = objectMapper.readValue(url, type);
-
-        return pojo;
-    }
+//    public T getPOJOfromUrl(String url) throws IOException {//todo later
+//        URL link = new URL(url);
+//        T pojo = objectMapper.readValue(url, type);
+//
+//        return pojo;
+//    }
 
 }

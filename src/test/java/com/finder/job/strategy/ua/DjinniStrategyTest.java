@@ -1,6 +1,6 @@
 package com.finder.job.strategy.ua;
 
-import com.finder.job.models.Vacancy;
+import com.finder.job.models.vacancy.Vacancy;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

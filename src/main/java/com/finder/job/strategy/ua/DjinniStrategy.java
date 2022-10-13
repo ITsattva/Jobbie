@@ -1,8 +1,8 @@
 package com.finder.job.strategy.ua;
 
 import com.finder.job.mapper.VacancyMapperHTML;
-import com.finder.job.models.Skill;
-import com.finder.job.models.Vacancy;
+import com.finder.job.models.vacancy.DjinniVacancy;
+import com.finder.job.models.vacancy.Vacancy;
 import com.finder.job.strategy.Strategy;
 import com.finder.job.util.NetworkHelper;
 import org.jsoup.nodes.Document;
@@ -80,7 +80,7 @@ public class DjinniStrategy implements Strategy<String> {
             String salary = salaryElement != null ? salaryElement.text().replaceAll("[ , ]", "") : "За результатами співбесіди";
             String description = element.select("div.list-jobs__description > p").text();
 
-            return new Vacancy(title, company, town, description, salary, SITE + innerLink, date);
+            return new DjinniVacancy(title, company, town, description, salary, SITE + innerLink, date);
         }
 
         @Override

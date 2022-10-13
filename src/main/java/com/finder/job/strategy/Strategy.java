@@ -1,11 +1,8 @@
 package com.finder.job.strategy;
 
-import com.finder.job.models.Skill;
-import com.finder.job.models.Vacancy;
-import org.jsoup.nodes.Document;
+import com.finder.job.models.vacancy.Vacancy;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface Strategy<U> {

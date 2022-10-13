@@ -1,14 +1,13 @@
 package com.finder.job.strategy.ua;
 
 import com.finder.job.mapper.VacancyMapperHTML;
-import com.finder.job.models.Skill;
-import com.finder.job.models.Vacancy;
+import com.finder.job.models.vacancy.DouVacancy;
+import com.finder.job.models.vacancy.Vacancy;
 import com.finder.job.strategy.Strategy;
 import com.finder.job.util.NetworkHelper;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.openqa.selenium.WebDriver;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class DouStrategy implements Strategy<String> {
         }
 
         @Override
-        public Vacancy parseVacancyFrom(Element element) throws IOException {
+        public Vacancy parseVacancyFrom(Element element) {
             String title = element.select("div > div.title > a").text();
             String company = element.select("div > div.title > strong > a").first().text();
             String town = element.select("div > div.title > span").text();
@@ -84,7 +83,7 @@ public class DouStrategy implements Strategy<String> {
             String salary = salaryElement != null ? salaryElement.text().replaceAll("[ , ]", "") : "За результатами співбесіди";
             String description = element.select("div > div.sh-info").text().replaceAll("[ , ]", "");
 
-            return new Vacancy(title, company, town, description, salary, innerLink, date);
+            return new DouVacancy(title, company, town, description, salary, innerLink, date);
         }
 
         @Override

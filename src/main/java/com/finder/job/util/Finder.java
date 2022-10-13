@@ -1,6 +1,6 @@
 package com.finder.job.util;
 
-import com.finder.job.models.Vacancy;
+import com.finder.job.models.vacancy.Vacancy;
 import com.finder.job.strategy.Strategy;
 import com.finder.job.strategy.ru.HeadHunterStrategy;
 import com.finder.job.strategy.ua.*;

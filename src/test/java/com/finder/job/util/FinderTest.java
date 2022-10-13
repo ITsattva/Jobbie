@@ -1,12 +1,10 @@
 package com.finder.job.util;
 
-import com.finder.job.models.Vacancy;
+import com.finder.job.models.vacancy.Vacancy;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class FinderTest {
     Finder finder = new Finder();

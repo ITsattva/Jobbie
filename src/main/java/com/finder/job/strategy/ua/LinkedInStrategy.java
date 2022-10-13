@@ -1,7 +1,6 @@
 package com.finder.job.strategy.ua;
 
-import com.finder.job.models.Skill;
-import com.finder.job.models.Vacancy;
+import com.finder.job.models.vacancy.Vacancy;
 import com.finder.job.strategy.Strategy;
 
 import java.io.IOException;

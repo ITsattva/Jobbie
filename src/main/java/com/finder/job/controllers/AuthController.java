@@ -43,7 +43,7 @@ public class AuthController {
 
         System.out.println("AuthController method successRedirect");
 
-        return "redirect:/homePage";
+        return "redirect:/search";
     }
 
     @GetMapping("/registration")

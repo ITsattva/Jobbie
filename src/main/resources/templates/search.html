@@ -6,32 +6,39 @@
     <title>Jobbie - search</title>
 </head>
 <body>
-<div class="search_block"></div>
-<img class="logo" th:src="@{logo.png}"><br/>
-    <h4 class="search_label">Включить глубокий поиск?</label>
-    <i onclick="myFunction(this)" class="fa fa-thumbs-o-up" toggle="true"></i>
+<div class="search_block">
+    <img class="logo" src="logo.png"><br/>
+    <!-- <h4 class="search_label">Включить глубокий поиск? -->
 
-    <form class="example" th:method="post" th:action="@{/search}">
-        <input type="text" placeholder="Search.." name="search">
-        <button type="submit"><i class="fa fa-search"></i></button>
+    <form class="example" action="action_page.php">
+        <input type="text" name="search" placeholder="Search..">
+
     </form>
 
-    <script>
-        function myFunction(x) {
-            x.classList.toggle("fa-thumbs-up");
+    Глубокий поиск: <label class="switch"><input type="checkbox" onclick="myFunction()"><span class="slider round"></span></label><br>
 
-            // Get the snackbar DIV
-            var y = document.getElementById("snackbar");
+    <button class="button">Найти работу</button>
 
-            // Add the "show" class to DIV
-            y.className = "show";
 
-            // After 3 seconds, remove the show class from DIV
-            setTimeout(function(){ y.className = y.className.replace("show", ""); }, 3000);
-        }
-    </script>
+</div>
 
-    <div id="snackbar">Поиск может занять некоторое время..</div>
+
+
+<script>
+    function myFunction(x) {
+
+        // Get the snackbar DIV
+        var y = document.getElementById("snackbar");
+
+        // Add the "show" class to DIV
+        y.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function(){ y.className = y.className.replace("show", ""); }, 3000);
+    }
+</script>
+
+<div id="snackbar">Поиск может занять некоторое время..</div>
 </body>
 
 <style>
@@ -40,8 +47,60 @@
         background-color:rgb(255, 255, 255);
     }
 
+    .button {
+        padding: 15px 40px;
+        font-size: 24px;
+        text-align: center;
+        margin-top: 30px;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: rgb(78, 57, 215);
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+    }
+
+    .button:hover {background-color: #4320ae}
+
+    .button:active {
+        background-color: #1e2383;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+    }
+
+    img:hover {
+        /* Start the shake animation and make the animation last for 0.5 seconds */
+        animation: shake 0.5s;
+        /* When the animation is finished, start again */
+        animation-iteration-count: infinite;
+    }
+
+    @keyframes shake {
+        0% { transform: translate(1px, 1px) rotate(0deg); }
+        10% { transform: translate(-1px, -2px) rotate(-1deg); }
+        20% { transform: translate(-3px, 0px) rotate(1deg); }
+        30% { transform: translate(3px, 2px) rotate(0deg); }
+        40% { transform: translate(1px, -1px) rotate(1deg); }
+        50% { transform: translate(-1px, 2px) rotate(-1deg); }
+        60% { transform: translate(-3px, 1px) rotate(0deg); }
+        70% { transform: translate(3px, 1px) rotate(-1deg); }
+        80% { transform: translate(-1px, -1px) rotate(1deg); }
+        90% { transform: translate(1px, 2px) rotate(0deg); }
+        100% { transform: translate(1px, -2px) rotate(-1deg); }
+    }
+
     .search_block{
         padding: 100px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
     }
 
     .logo {
@@ -65,28 +124,26 @@
 
 
     input[type=text] {
-        height: 15px;
+        height: 25px;
         width: 220px;
         -webkit-transition: width 0.4s ease-in-out;
         transition: width 0.4s ease-in-out;
     }
 
     input[type=text]:focus {
-        width: 37%;
+        width: 60%;
     }
 
     .fa {
-        font-size: 20px;
+        font-size: 36px;
+        color: #666;
         cursor: pointer;
         user-select: none;
     }
 
     .fa:hover {
 
-        /* padding: 16px 32px;
-        font-size: 16px;
-        margin: 4px 2px;
-        opacity: 0.6; */
+        font-size: 42px;
     }
 
     /* Style buttons */

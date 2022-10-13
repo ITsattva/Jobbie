@@ -11,7 +11,7 @@
     <h4 class="search_label">Включить глубокий поиск?</label>
     <i onclick="myFunction(this)" class="fa fa-thumbs-o-up" toggle="true"></i>
 
-    <form class="example" action="action_page.php">
+    <form class="example" th:method="post" th:action="@{/search}">
         <input type="text" placeholder="Search.." name="search">
         <button type="submit"><i class="fa fa-search"></i></button>
     </form>
@@ -37,7 +37,7 @@
 <style>
     body {
         font-family: Arial, Helvetica, sans-serif;
-        background-color:rgb(61, 69, 77);
+        background-color:rgb(255, 255, 255);
     }
 
     .search_block{
@@ -120,6 +120,7 @@
         display: block;
         position:-webkit-sticky; /* Sit on top of the screen */
         padding: 16px; /* Padding */
+        margin-top: 10%;
         z-index: 1; /* Add a z-index if needed */
         bottom: 30px; /* 30px from the bottom */
     }

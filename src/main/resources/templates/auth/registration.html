@@ -1,41 +1,95 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
 
+
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Registration</title>
 </head>
 <body>
-<div>
-    <h1>Registration</h1>
-
-    <form method="post" th:action="@{/auth/registration}" th:object="${form}">
-
-        <label for="username">Enter username: </label>
-        <input type="text" th:field="*{username}" id="username">
-        <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
-        <br/>
-
-        <div>
-            <label>Email</label>
-            <input type="text" th:field="*{email}">
+<div class="registration_form">
+    <form method="post" th:action="@{/auth/registration}" th:object="${form}" style="max-width:500px;margin:auto">
+        <h2>Registration</h2>
+        <div class="input-container">
+            <i class="fa fa-user icon"></i>
+            <input class="input-field" type="text" placeholder="Username" name="usrnm" th:field="*{username}" id="username">
         </div>
-        <div>
-            <label>Password</label>
-            <input type="password" th:field="*{password}">
-        </div>
-        <div>
-            <label>Password Confirm</label>
-            <input type="password" th:field="*{confirmPassword}">
+         <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
+
+        <div class="input-container">
+            <i class="fa fa-envelope icon"></i>
+            <input class="input-field" type="text" placeholder="Email" name="email" th:field="*{email}">
         </div>
 
-        <button type="submit">Submit</button>
+        <div class="input-container">
+            <i class="fa fa-key icon"></i>
+            <input class="input-field" type="password" placeholder="Password" name="psw" th:field="*{password}">
+        </div>
+
+        <div class="input-container">
+            <i class="fa fa-key icon"></i>
+            <input class="input-field" type="password" placeholder="Password Confirm" name="psw_cnfrm" th:field="*{password}">
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+        <div>
+            <p>Already have an account? <a href="/auth/login">Sign in</a>.</p>
+        </div>
     </form>
 
 </div>
 
-<div>
-    <p>Already have an account? <a href="/auth/login">Sign in</a>.</p>
-</div>
+
 </body>
+
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    * {box-sizing: border-box;}
+
+    .registration_form {
+        padding-top: 10%;
+    }
+
+    .input-container {
+        display: -ms-flexbox; /* IE10 */
+        display: flex;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .icon {
+        padding: 10px;
+        background: dodgerblue;
+        color: white;
+        min-width: 50px;
+        text-align: center;
+    }
+
+    .input-field {
+        width: 100%;
+        padding: 10px;
+        outline: none;
+    }
+
+    .input-field:focus {
+        border: 2px solid dodgerblue;
+    }
+
+    /* Set a style for the submit button */
+    .btn {
+        background-color: dodgerblue;
+        color: white;
+        padding: 15px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        opacity: 0.9;
+    }
+
+    .btn:hover {
+        opacity: 1;
+    }
+</style>
+
 </html>

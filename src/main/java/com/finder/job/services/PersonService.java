@@ -15,6 +15,7 @@ public class PersonService {
     private final PasswordEncoder passwordEncoder;
     private final PersonRepository personRepository;
 
+
     public PersonService(PersonMapper personMapper, PasswordEncoder passwordEncoder, PersonRepository personRepository) {
         this.personMapper = personMapper;
         this.passwordEncoder = passwordEncoder;

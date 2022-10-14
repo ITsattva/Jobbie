@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Implementation of Strategy for Work.ua site
+ */
 public class WorkUaStrategy implements Strategy<String> {
     private final VacancyMapperHTML<Vacancy, Document, Element> mapper;
     private final NetworkHelper networkHelper;
@@ -47,18 +49,18 @@ public class WorkUaStrategy implements Strategy<String> {
     }
 
     @Override
-    public String generateUrl(String area, Integer page){
+    public String generateUrl(String position, Integer page){
         if(page != null) {
-            return SITE + (String.format(POSITION_PARAM, area)) + (String.format(PAGE_PARAM, page));
+            return SITE + (String.format(POSITION_PARAM, position)) + (String.format(PAGE_PARAM, page));
         } else {
-            return SITE + (String.format(POSITION_PARAM, area));
+            return SITE + (String.format(POSITION_PARAM, position));
         }
     }
 
     private class WorkUaMapper implements VacancyMapperHTML<Vacancy, Document, Element> {
         @Override
-        public List<Vacancy> parseVacanciesListFrom(Document html) throws IOException {
-            Elements rawVacancies = html.select("div.card.card-hover.card-visited.wordwrap.job-link");
+        public List<Vacancy> parseVacanciesListFrom(Document source) throws IOException {
+            Elements rawVacancies = source.select("div.card.card-hover.card-visited.wordwrap.job-link");
 
             List<Vacancy> vacancies = new ArrayList<>();
             for(Element element : rawVacancies) {

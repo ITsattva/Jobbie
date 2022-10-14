@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+/**
+ * Implementation of validator for checking a repetition of username
+ */
 @Component
 public class PersonValidator implements Validator {
     private final PersonRepository personRepository;

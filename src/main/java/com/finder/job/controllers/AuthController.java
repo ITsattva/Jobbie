@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 
-
+/**
+ * Controller for authorization/registration process
+ */
 @Controller
 @RequestMapping("/auth")
 public class AuthController {

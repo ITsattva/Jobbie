@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of Strategy for DOU site
+ */
 public class DouStrategy implements Strategy<String> {
     private final VacancyMapperHTML<Vacancy, Document, Element> mapper;
     private final NetworkHelper networkHelper;
@@ -57,9 +60,9 @@ public class DouStrategy implements Strategy<String> {
     class DouMapper implements VacancyMapperHTML<Vacancy, Document, Element> {
 
         @Override
-        public List<Vacancy> parseVacanciesListFrom(Document html) throws IOException {
+        public List<Vacancy> parseVacanciesListFrom(Document source) throws IOException {
             //#vacancyListId > ul > li:nth-child(11)
-            Elements rawVacancies = html.select("#vacancyListId > ul > li");
+            Elements rawVacancies = source.select("#vacancyListId > ul > li");
 
             System.out.println("Elements size: " + rawVacancies.size());
             List<Vacancy> vacancies = new ArrayList<>();

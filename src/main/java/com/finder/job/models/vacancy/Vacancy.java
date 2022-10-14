@@ -7,6 +7,9 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
+/**
+ * Base entity for all vacancies
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

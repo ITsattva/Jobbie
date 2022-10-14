@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of Strategy for Djinni site
+ */
 public class DjinniStrategy implements Strategy<String> {
     private final VacancyMapperHTML<Vacancy, Document, Element> mapper;
     private final NetworkHelper networkHelper;
@@ -57,8 +60,8 @@ public class DjinniStrategy implements Strategy<String> {
     class DjinniMapper implements VacancyMapperHTML<Vacancy, Document, Element> {
 
         @Override
-        public List<Vacancy> parseVacanciesListFrom(Document html) throws IOException {
-            Elements rawVacancies = html.select("ul.list-unstyled.list-jobs > li");
+        public List<Vacancy> parseVacanciesListFrom(Document source) throws IOException {
+            Elements rawVacancies = source.select("ul.list-unstyled.list-jobs > li");
 
             List<Vacancy> vacancies = new ArrayList<>();
             for(Element element : rawVacancies) {
@@ -70,7 +73,7 @@ public class DjinniStrategy implements Strategy<String> {
         }
 
         @Override
-        public Vacancy parseVacancyFrom(Element element) throws IOException {
+        public Vacancy parseVacancyFrom(Element element) {
             String title = element.select("div.list-jobs__title > a.profile > span").text();
             String company = element.select("div.list-jobs__details > div > a").first().text();
             String town = element.select("div.list-jobs__details > div > span.location-text").text();

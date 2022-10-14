@@ -16,6 +16,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of Strategy for Rabota.ua site.
+ * Rabota.ua doesn't have a description field on the main page, so
+ * Strategy use an API for receiving a vacancy entity.
+ */
 public class RabotaUaStrategy implements Strategy<URL> {
     private final VacancyMapper<Vacancy, RabotaUaPOJO, VacancyShortDto> vacancyMapper;
     private final ObjectMapper objectMapper;
@@ -61,10 +66,10 @@ public class RabotaUaStrategy implements Strategy<URL> {
     private class RabotaUaMapper implements VacancyMapper<Vacancy, RabotaUaPOJO, VacancyShortDto> {
 
         @Override
-        public List<Vacancy> parseVacanciesListFrom(RabotaUaPOJO pojo) throws IOException {
+        public List<Vacancy> parseVacanciesListFrom(RabotaUaPOJO source) throws IOException {
             List<Vacancy> vacancies = new ArrayList<>();
 
-            for(VacancyShortDto dto : pojo.getDocuments()){
+            for(VacancyShortDto dto : source.getDocuments()){
                 Vacancy vacancy = parseVacancyFrom(dto);
                 vacancies.add(vacancy);
             }
@@ -72,8 +77,11 @@ public class RabotaUaStrategy implements Strategy<URL> {
             return vacancies;
         }
 
+        /**
+         * @return vacancy with a link that'll be used for future getting REAL company's link
+         */
         @Override
-        public Vacancy parseVacancyFrom(VacancyShortDto element) throws IOException {
+        public Vacancy parseVacancyFrom(VacancyShortDto element) {
             Vacancy vacancy = new RabotaUaVacancy();
             vacancy.setTitle(element.getName());
             vacancy.setCompany(element.getCompanyName());

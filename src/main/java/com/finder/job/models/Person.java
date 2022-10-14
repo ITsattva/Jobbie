@@ -8,6 +8,9 @@ import lombok.extern.log4j.Log4j2;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Entity for mapping in database
+ */
 @Data
 @NoArgsConstructor
 @Table(name = "person")

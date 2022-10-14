@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * POJO entity for parsing from JSONobject
+ */
 @Data
 public class RabotaUaPOJO {
     private List<VacancyShortDto> documents;

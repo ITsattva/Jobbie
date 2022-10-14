@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Main component for handling strategies of getting vacancies
+ */
 @Component
 @NoArgsConstructor
 @Log4j2
@@ -37,6 +40,10 @@ public class Finder {
         this.strategy = strategy;
     }
 
+    /**
+     * Method tunes up a strategy which should be used for receiving
+     * @param source defines which site will be used
+     */
     private void tuneUpStrategy(String source) {
         switch (source) {
             case "Djinni" -> setStrategy(new DjinniStrategy());
@@ -49,10 +56,16 @@ public class Finder {
         }
     }
 
+    /**
+     *
+     * @param region defines a country
+     * @param query defines a query of searching
+     * @return a list of vacancies
+     * @throws IOException when can't receive a web page
+     */
     public List<Vacancy> getVacancies(String region, String query) throws IOException {
         List<Vacancy> vacancies = new ArrayList<>();
-
-        switch (region) {
+        switch (region.toUpperCase()) {
             case "UA" -> {
                 for (String source : uaURLs) {
                     tuneUpStrategy(source);

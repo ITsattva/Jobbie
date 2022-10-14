@@ -8,16 +8,23 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Helper for working with network
+ */
 @Component
 public class NetworkHelper {
     private final ObjectMapper objectMapper;
-//    private final Class<T> type;
 
     public NetworkHelper() {
         this.objectMapper = new ObjectMapper();
-//        this.type = type;
     }
 
+    /**
+     *
+     * @param url defines source
+     * @return DOM object of HTML page
+     * @throws IOException when can't connect to the page
+     */
     public Document getPageFromURL(String url) throws IOException {
         return Jsoup.connect(url)
                 .userAgent("Chrome/4.0.249.0 Safari/532.5")

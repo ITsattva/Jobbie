@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -7,60 +7,33 @@
 </head>
 <body>
 
-<div class="icon-bar search sticky">
-    <a class="active" href="#"><i class="fa fa-search"></i></a>
-    <a class="passive" href="#"><i class="fa fa-home"></i></a>
+<div class="topnav search sticky">
+    <!-- <a class="active" href="#home"><i class="fa fa-user"></i> Кабинет</a> -->
+    <button class="btn cabinet"><i class="fa fa-user"></i> Кабинет</button>
+    <div class="search-container">
+        <form method="post" th:action="@{/result} ">
+            <button type="submit"><i class="fa fa-search"></i></button>
+            <input id="search" type="text" placeholder="Search.." name="search">
+        </form>
+    </div>
 </div>
 
 <div class="main">
-    <h2 class="main_title">Найдено 47 вакансий:</h2><br>
+    <h2 class="main_title">Найдено <span th:text="${count}"></span> вакансий:</h2><br>
     <ul>
-        <li class="vacancy">
-            <h2 class="title">iOS Software Engineer</h2>
-            <b class="company">EdIble Brands Ukraine, </b><span class="town">Україна</span><span class="date" style="float: right;" >сьогодні</span><br>
-            <span class="salary">За результатами співбесіди</span><br>
-            <p class="description">Naranga is a leading franchise operation management software. It is a part of the Edible Brands group of companies based in the USA.</p><br>
+        <li class="vacancy" th:each="vacancy : ${vacancies}">
+            <h2 class="title" th:text="${vacancy.getTitle()}">iOS Software Engineer</h2>
+            <b class="company" th:text="${vacancy.getCompany()} + ', '">EdIble Brands Ukraine, </b><span class="town"
+                                                                                                  th:text="${vacancy.getTown()}">Україна</span><span
+                class="date" style="float: right;" th:text="${vacancy.getDate()}">сьогодні</span><br>
+            <span class="salary" th:text="${vacancy.getSalary()}">За результатами співбесіди</span><br>
+            <p class="description" th:text="${vacancy.getDescription()}">Naranga is a leading franchise operation
+                management software. It is a part of the Edible Brands group of companies based in the USA.</p><br>
             <span class="link">
-                    <button class="btn"><i class="fa fa-link"> Откликнуться!<a href="https://djinni.co/jobs/484253-ios-software-engineer/"></a></i></button>
+                    <button class="btn"><i class="fa fa-link"> Откликнуться!<a
+                            href="${vacancy.getLink()}"></a></i></button>
                 </span>
         </li>
-        <li class="vacancy">
-            <h2 class="title">iOS Software Engineer</h2>
-            <b class="company">EdIble Brands Ukraine, </b><span class="town">Україна</span><span class="date" style="float: right;" >сьогодні</span><br>
-            <span class="salary">За результатами співбесіди</span><br>
-            <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum modi possimus eos ratione perspiciatis repudiandae quisquam corporis ipsa culpa! Maxime veritatis eaque temporibus reprehenderit, sed praesentium laudantium libero expedita autem obcaecati pariatur quam eligendi facere quasi error harum ex! Nisi ut explicabo aspernatur magni sequi quidem neque alias cupiditate consequatur?</p><br>
-            <span class="link">
-                    <button class="btn"><i class="fa fa-link"> Откликнуться!<a href="https://djinni.co/jobs/484253-ios-software-engineer/"></a></i></button>
-                </span>
-        </li>
-        <li class="vacancy">
-            <h2 class="title">iOS Software Engineer</h2>
-            <b class="company">EdIble Brands Ukraine, </b><span class="town">Україна</span><span class="date" style="float: right;" >сьогодні</span><br>
-            <span class="salary">За результатами співбесіди</span><br>
-            <p class="description">Naranga is a leading franchise operation management software. It is a part of the Edible Brands group of companies based in the USA.</p><br>
-            <span class="link">
-                    <button class="btn"><i class="fa fa-link"> Откликнуться!<a href="https://djinni.co/jobs/484253-ios-software-engineer/"></a></i></button>
-                </span>
-        </li>
-        <li class="vacancy">
-            <h2 class="title">iOS Software Engineer</h2>
-            <b class="company">EdIble Brands Ukraine, </b><span class="town">Україна</span><span class="date" style="float: right;" >сьогодні</span><br>
-            <span class="salary">За результатами співбесіди</span><br>
-            <p class="description">Naranga is a leading franchise operation management software. It is a part of the Edible Brands group of companies based in the USA.</p><br>
-            <span class="link">
-                    <button class="btn"><i class="fa fa-link"> Откликнуться!<a href="https://djinni.co/jobs/484253-ios-software-engineer/"></a></i></button>
-                </span>
-        </li>
-        <li class="vacancy">
-            <h2 class="title">iOS Software Engineer</h2>
-            <b class="company">EdIble Brands Ukraine, </b><span class="town">Україна</span><span class="date" style="float: right;" >сьогодні</span><br>
-            <span class="salary">За результатами співбесіди</span><br>
-            <p class="description">Naranga is a leading franchise operation management software. It is a part of the Edible Brands group of companies based in the USA.</p><br>
-            <span class="link">
-                    <button class="btn"><i class="fa fa-link"> Откликнуться!<a href="https://djinni.co/jobs/484253-ios-software-engineer/"></a></i></button>
-                </span>
-        </li>
-
     </ul>
 </div>
 
@@ -76,26 +49,13 @@
 </div>
 </body>
 <style>
+    * {
+        box-sizing: border-box;
+    }
+
     body {
         font-family: Arial, Helvetica, sans-serif;
         background-color: rgb(255, 255, 255);
-    }
-
-    input[type=text] {
-        font-size: 30px;
-        height: 40px;
-        width: 120px;
-        margin: 8px 0 8px 50px;
-
-        -webkit-transition: width 0.4s ease-in-out;
-        transition: width 0.4s ease-in-out;
-    }
-
-    input[type=text]:focus {
-        width: 40%;
-    }
-
-    li {
     }
 
     .main {
@@ -104,23 +64,152 @@
         margin-left: 80px;
     }
 
+    .topnav {
+        overflow: hidden;
+        background-color: #e9e9e9;
+    }
+
+    .btn.cabinet {
+        width: 170px;
+        margin-left: 120px;
+    }
+
+    .fa.fa-search {
+        margin-right: 60px;
+    }
+
+    .topnav a {
+        float: left;
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .topnav a.active {
+        background-color: #2196F3;
+        color: white;
+    }
+
+    .topnav .search-container {
+        text-align: center;
+        float: right;
+    }
+
+    .topnav input[type=text] {
+        padding: 6px;
+        margin-top: 8px;
+        font-size: 17px;
+        border: none;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+    }
+
+    /* input[type=text]:focus {
+        width: 40%;
+    } */
+
+
+    .topnav .search-container button {
+        float: right;
+        padding: 6px 10px;
+        margin-top: 8px;
+        margin-right: 16px;
+        background: #ddd;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .topnav .search-container button:hover {
+        background: #ccc;
+    }
+
+    @media screen and (max-width: 600px) {
+        .topnav .search-container {
+            float: none;
+        }
+
+        .topnav a, .topnav input[type=text], .topnav .search-container button {
+            float: none;
+            display: block;
+            text-align: left;
+            width: 100%;
+            margin: 0;
+            padding: 14px;
+        }
+
+        .topnav input[type=text] {
+            border: 1px solid #ccc;
+        }
+    }
+
+
     .vacancy {
         margin-bottom: 24px;
         margin-right: 724px;
     }
 
-    .search_input {
-        margin: 8px 0 8px 8px;
-    }
-
-    .search {
+    /* .search {
         width: 100%;
         background: #555;
         color: #f1f1f1;
+    } */
+
+
+    div.sticky.search {
+        position: fixed;
+        width: 100%;
+        top: 0;
+    }
+
+
+    .icon-bar {
+        width: 100%; /* Full-width */
+        display: flex;
+        background-color: #555; /* Dark-grey background */
+        overflow: auto; /* Overflow due to float */
+    }
+
+    .icon-bar a {
+        float: left; /* Float links side by side */
+        text-align: center; /* Center-align text */
+        width: 50%; /* Equal width (5 icons with 20% width each = 100%) */
+        padding: 12px 0; /* Some top and bottom padding */
+        transition: all 0.3s ease; /* Add transition for hover effects */
+        color: white; /* White text color */
+        font-size: 36px; /* Increased font size */
+    }
+
+    .icon-bar a:hover {
+        background-color: #000; /* Add a hover color */
+    }
+
+    .active {
+        background-color: #4CAF50; /* Add an active/current color */
+    }
+
+    .btn {
+        background-color: #4CAF50; /* Blue background */
+        border: none; /* Remove borders */
+        color: white; /* White text */
+        padding: 12px 16px; /* Some padding */
+        font-size: 16px; /* Set a font size */
+        cursor: pointer; /* Mouse pointer on hover */
+    }
+
+    .btn:hover {
+        background-color: #367f38;
     }
 
     .pagination {
-        padding-top: 45%;
         padding-left: 38%;
         text-align: center;
         display: block;
@@ -149,110 +238,6 @@
         width: 100%;
         bottom: 0;
     }
-
-    div.sticky.search {
-        position: fixed;
-        width: 100%;
-        top: 0;
-    }
-
-    /* --- */
-
-
-
-    /* Tooltip container */
-    .tooltip {
-        position: relative;
-        display: inline-block;
-        border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-    }
-
-    /* Tooltip text */
-    .tooltip .tooltiptext {
-        visibility: hidden;
-        width: 240px;
-        background-color: #555;
-        color: #fff;
-        text-align: center;
-        padding: 5px 0;
-        border-radius: 6px;
-
-        /* Position the tooltip text */
-        position: absolute;
-        z-index: 1;
-        bottom: 125%;
-        left: 50%;
-        margin-left: -60px;
-
-        /* Fade in tooltip */
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
-
-    /* Tooltip arrow */
-    .tooltip .tooltiptext::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #555 transparent transparent transparent;
-    }
-
-    /* Show the tooltip text when you mouse over the tooltip container */
-    .tooltip:hover .tooltiptext {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    /* ------------------------ */
-
-    .icon-bar {
-        width: 100%; /* Full-width */
-        display: flex;
-        background-color: #555; /* Dark-grey background */
-        overflow: auto; /* Overflow due to float */
-    }
-
-    .icon-bar a {
-        float: left; /* Float links side by side */
-        text-align: center; /* Center-align text */
-        width: 50%; /* Equal width (5 icons with 20% width each = 100%) */
-        padding: 12px 0; /* Some top and bottom padding */
-        transition: all 0.3s ease; /* Add transition for hover effects */
-        color: white; /* White text color */
-        font-size: 36px; /* Increased font size */
-    }
-
-    .icon-bar a:hover {
-        background-color: #000; /* Add a hover color */
-    }
-
-    .active {
-        background-color: #4CAF50; /* Add an active/current color */
-    }
-
-    .passive {
-        justify-content: end;
-    }
-
-    /* Style buttons */
-    .btn {
-        background-color: #4CAF50; /* Blue background */
-        border: none; /* Remove borders */
-        color: white; /* White text */
-        padding: 12px 16px; /* Some padding */
-        font-size: 16px; /* Set a font size */
-        cursor: pointer; /* Mouse pointer on hover */
-    }
-
-    /* Darker background on mouse-over */
-    .btn:hover {
-        background-color: #367f38;
-    }
-
 
 </style>
 

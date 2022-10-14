@@ -27,8 +27,9 @@ public class Finder {
 //    ));
     private final List<String> uaURLs = new ArrayList<>(Arrays.asList(
 //            "Djinni",
-//            "WorkUa",
-            "RabotaUa"
+            "WorkUa",
+            "RabotaUa",
+            "DOU"
     ));
     private final List<String> ruURLs = new ArrayList<>(Arrays.asList(
             "HeadHunter"

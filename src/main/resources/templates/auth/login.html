@@ -17,10 +17,15 @@
         <div class="input-container">
             <i class="fa fa-key icon"></i>
             <input class="input-field" type="password" placeholder="Password" name="password" id="password">
-
         </div>
 
         <button type="submit" class="btn">Sign in</button>
+        <button type="submit" class="btn"><i class="fa fa-google fa-fw"></i> Login with Google+</button>
+
+        <!-- <a href="#" class="btn">
+            <i class="fa fa-google fa-fw"></i> Login with Google+
+        </a> -->
+
         Show Password <input type="checkbox" onclick="myFunction()">
         <div>
             <p>Don't have an account? <a href="/auth/registration"> Sign up </a>.</p>
@@ -30,7 +35,7 @@
 
 <script>
     function myFunction() {
-        var x = document.getElementById("password");
+        const x = document.getElementById("password");
         if (x.type === "password") {
             x.type = "text";
         } else {

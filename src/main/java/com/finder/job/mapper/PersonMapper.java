@@ -17,5 +17,4 @@ public class PersonMapper {
                 .setEmail(form.getEmail())
                 .setPassword(form.getPassword());
     }
-
 }

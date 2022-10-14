@@ -9,32 +9,13 @@
 <div class="search_block">
     <img class="logo" src="logo.png"><br/>
 
-    <form th:method="GET" th:action="@{/result}">
-    <input type="text" name="search" placeholder="Search.."><br>
+    <form th:method="post" th:action="@{/result}">
+    <input id="search" type="text" name="search" placeholder="Search.."><br>
     <div class="tooltip">Глубокий поиск?<span class="tooltiptext">Этот вид поиска может занять некоторое время..</span></div>
     <label class="switch"><input type="checkbox" onclick="myFunction()"><span class="slider round"></span></label><br>
     <button class="button">Найти работу</button>
     </form>
-
-
 </div>
-
-
-<script>
-    function myFunction(x) {
-
-        // Get the snackbar DIV
-        var y = document.getElementById("snackbar");
-
-        // Add the "show" class to DIV
-        y.className = "show";
-
-        // After 3 seconds, remove the show class from DIV
-        setTimeout(function () {
-            y.className = y.className.replace("show", "");
-        }, 3000);
-    }
-</script>
 </body>
 
 <style>

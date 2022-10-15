@@ -25,6 +25,7 @@ public class PersonService {
     public void registration(PersonRegistrationForm form) {
         Person person = personMapper.mapFormToPerson(form);
         person.setPassword(passwordEncoder.encode(person.getPassword()));
+        person.setSkills(null);
         personRepository.save(person);
     }
 

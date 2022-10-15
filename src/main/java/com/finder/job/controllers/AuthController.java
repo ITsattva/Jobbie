@@ -1,12 +1,11 @@
 package com.finder.job.controllers;
 
 import com.finder.job.dto.PersonRegistrationForm;
-import com.finder.job.models.Person;
 import com.finder.job.services.PersonService;
 import com.finder.job.util.PersonValidator;
-import lombok.extern.log4j.Log4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.server.authorization.AuthorizationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;

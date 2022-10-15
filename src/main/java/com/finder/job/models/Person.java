@@ -6,6 +6,7 @@ import lombok.experimental.Accessors;
 import lombok.extern.log4j.Log4j2;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "person_id")
-    private Long id;
+    private BigInteger id;
 
     @Column
     private String username;

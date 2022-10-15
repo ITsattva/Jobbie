@@ -8,9 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Data
 public class PersonRegistrationForm {
     private String username;
-    private String password;
-    private String confirmPassword;
     private String email;
+    private String password;
 
 
 

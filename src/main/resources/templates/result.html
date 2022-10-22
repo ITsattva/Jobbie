@@ -8,12 +8,13 @@
 <body>
 
 <div class="topnav search sticky">
-    <!-- <a class="active" href="#home"><i class="fa fa-user"></i> Кабинет</a> -->
     <button class="btn cabinet"><i class="fa fa-user"></i> Кабинет</button>
     <div class="search-container">
         <form method="post" th:action="@{/result} ">
             <button type="submit"><i class="fa fa-search"></i></button>
             <input id="search" type="text" placeholder="Search.." name="search">
+            <input type="text" hidden name="oldQuery" value="false">
+            <input type="text" hidden name="page" value="1">
         </form>
     </div>
 </div>
@@ -24,28 +25,195 @@
         <li class="vacancy" th:each="vacancy : ${vacancies}">
             <h2 class="title" th:text="${vacancy.getTitle()}">iOS Software Engineer</h2>
             <b class="company" th:text="${vacancy.getCompany()} + ', '">EdIble Brands Ukraine, </b><span class="town"
-                                                                                                  th:text="${vacancy.getTown()}">Україна</span><span
+                                                                                                         th:text="${vacancy.getTown()}">Україна</span><span
                 class="date" style="float: right;" th:text="${vacancy.getDate()}">сьогодні</span><br>
             <span class="salary" th:text="${vacancy.getSalary()}">За результатами співбесіди</span><br>
             <p class="description" th:text="${vacancy.getDescription()}">Naranga is a leading franchise operation
                 management software. It is a part of the Edible Brands group of companies based in the USA.</p><br>
             <span class="link">
-                    <button class="btn"><i class="fa fa-link"> Откликнуться!<a
-                            href="${vacancy.getLink()}"></a></i></button>
-                </span>
+                        <button class="btn"><i class="fa fa-link"> Откликнуться!<a href="${vacancy.getLink()}"></a></i></button>
+            </span>
         </li>
     </ul>
 </div>
 
 <div class="pagination sticky">
-    <a href="#">«</a>
-    <a class="active" href="#">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">5</a>
-    <a href="#">6</a>
-    <a href="#">»</a>
+    <form method="post" th:action="@{/result}" th:object="${page}" id="paginator">
+        <input type="text" hidden name="oldQuery" value="true">
+        <input type="text" hidden id="page" name="page" value="0">
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", ready);
+        let pages = [[${pages}]]
+        let currentPage = +[[${page}]]
+
+        function ready() {
+            preparePagination()
+            activateButton(currentPage)
+        }
+
+        function preparePagination() {
+            if (pages > 1 && pages <= 5) {
+                addPagination()
+            } else if (pages > 5) {
+                addComplicatedPagination()
+            }
+        }
+
+        function addPagination() {
+            let paginator = document.getElementById("paginator")
+
+            createFirstButton(paginator)
+            createFirstPageButton(paginator)
+            createPages(paginator)
+            createLastButton(paginator)
+        }
+
+        function addComplicatedPagination() {
+            let paginator = document.getElementById("paginator")
+
+            createFirstButton(paginator)
+            createFirstPageButton(paginator)
+            createComplicatedPages(paginator)
+            createLastPageButton(paginator)
+            createLastButton(paginator)
+        }
+
+        function createPages(paginator) {
+            for (let i = 2; i <= pages; i++) {//begin option
+                let button = document.createElement("BUTTON")
+                button.id = 'btn_' + i
+                button.innerHTML = i
+                button.type = "submit"
+                button.addEventListener("click", reloadPage)
+                paginator.append(button)
+            }
+        }
+
+        function createComplicatedPages(paginator) {
+            if (currentPage <= 4) {
+                for (let i = 2; i <=5 ; i++) {//begin option
+                    let button = document.createElement("BUTTON")
+                    button.id = 'btn_' + i
+                    button.innerHTML = i
+                    button.type = "submit"
+                    button.addEventListener("click", reloadPage)
+                    paginator.append(button)
+                }
+                createEmptyButton(paginator)
+            } else if (currentPage <= pages-3) {//middle option
+                createEmptyButton(paginator)
+                for (let i = currentPage-1; i <= currentPage+1; i++) {
+                    let button = document.createElement("BUTTON")
+                    button.id = 'btn_' + i
+                    button.innerHTML = i
+                    button.type = "submit"
+                    button.addEventListener("click", reloadPage)
+                    paginator.append(button)
+                }
+                createEmptyButton(paginator)
+            } else { //end option
+                createEmptyButton(paginator)
+                for (let i = pages-3; i < pages; i++) {
+                    let button = document.createElement("BUTTON")
+                    button.id = 'btn_' + i
+                    button.innerHTML = i
+                    button.type = "submit"
+                    button.addEventListener("click", reloadPage)
+                    paginator.append(button)
+                }
+            }
+
+        }
+
+        function createFirstButton(paginator) {
+            let firstButton = document.createElement("BUTTON")
+            firstButton.id = 'btn_first'
+            firstButton.innerHTML = "«"
+            firstButton.type = "submit"
+            if (currentPage <= 1) {
+                firstButton.setAttribute('disabled', '')
+            } else {
+                firstButton.addEventListener("click", toPreviousPage)
+            }
+
+            paginator.appendChild(firstButton)
+        }
+
+        function createLastButton(paginator) {
+            let lastButton = document.createElement("BUTTON")
+            lastButton.id = 'btn_last'
+            lastButton.innerHTML = "»"
+            lastButton.type = "submit"
+            if (currentPage >= pages) {
+                lastButton.setAttribute('disabled', '')
+            } else {
+                lastButton.addEventListener("click", toNextPage)
+            }
+            paginator.append(lastButton)
+        }
+
+        function createFirstPageButton(paginator) {
+            let firstPageButton = document.createElement("BUTTON")
+            firstPageButton.id = 'btn_1'
+            firstPageButton.innerHTML = 1
+            firstPageButton.type = "submit"
+            firstPageButton.addEventListener("click", reloadPage)
+
+            paginator.append(firstPageButton)
+        }
+
+        function createLastPageButton(paginator) {
+            let lastPageButton = document.createElement("BUTTON")
+            lastPageButton.id = 'btn_' + pages
+            lastPageButton.innerHTML = pages
+            lastPageButton.type = "submit"
+            lastPageButton.addEventListener("click", reloadPage)
+
+            paginator.append(lastPageButton)
+        }
+
+        function createEmptyButton(paginator) {
+            let emptyButton = document.createElement("BUTTON")
+            emptyButton.id = 'btn_empty'
+            emptyButton.innerHTML = "..."
+            emptyButton.type = "submit"
+            emptyButton.setAttribute('disabled', '')
+            paginator.append(emptyButton)
+        }
+
+        function activateButton(element) {
+            let button = document.getElementById('btn_' + element)
+            button.setAttribute('disabled', '')
+            button.classList.add("active")
+        }
+
+        function reloadPage() {
+            // event.preventDefault()
+            let pageToLoad = document.getElementById("page")
+            pageToLoad.value = getButtonValue(this.id)
+        }
+
+        function toPreviousPage() {
+            let pageToLoad = document.getElementById("page")
+            pageToLoad.value = currentPage - 1
+        }
+
+        function toNextPage() {
+            let pageToLoad = document.getElementById("page")
+            pageToLoad.value = currentPage + 1
+        }
+
+        function getButtonValue(button) {
+
+            let buttonId = button
+            let id = buttonId.substring(4, buttonId.length);
+
+            console.log('id is: ' + id)
+            return +id;
+        }
+
+    </script>
 </div>
 </body>
 <style>

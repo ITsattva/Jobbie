@@ -18,7 +18,7 @@ import java.util.*;
 @NoArgsConstructor
 @Log4j2
 public class Finder {
-    //    private final List<String> uaURLs = new ArrayList<>(Arrays.asList(
+//    private final List<String> uaURLs = new ArrayList<>(Arrays.asList(
 //            "Djinni",
 //            "DOU",
 //            "WorkUa",

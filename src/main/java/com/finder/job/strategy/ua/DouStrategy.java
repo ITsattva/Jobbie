@@ -61,10 +61,8 @@ public class DouStrategy implements Strategy<String> {
 
         @Override
         public List<Vacancy> parseVacanciesListFrom(Document source) throws IOException {
-            //#vacancyListId > ul > li:nth-child(11)
             Elements rawVacancies = source.select("#vacancyListId > ul > li");
 
-            System.out.println("Elements size: " + rawVacancies.size());
             List<Vacancy> vacancies = new ArrayList<>();
             for(Element element : rawVacancies) {
                 Vacancy vacancy = mapper.parseVacancyFrom(element);

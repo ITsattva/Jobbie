@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,7 +54,7 @@ public class UserController {
                              @RequestParam(required = false, value = "page") Integer page,
                              @RequestParam(required = false, value = "oldQuery") Boolean oldQuery,
                              Model model) throws IOException {
-        String testRegion = "ua";//todo only for test purpose!
+        String testRegion = "RU";//todo only for test purpose!
         List<Vacancy> vacancies;
         if(oldQuery) {
             vacancies = tempStorage.getData();

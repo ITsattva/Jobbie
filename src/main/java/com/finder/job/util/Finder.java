@@ -3,6 +3,7 @@ package com.finder.job.util;
 import com.finder.job.models.vacancy.Vacancy;
 import com.finder.job.strategy.Strategy;
 import com.finder.job.strategy.ru.HeadHunterStrategy;
+import com.finder.job.strategy.ru.SuperJobStrategy;
 import com.finder.job.strategy.ua.*;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -18,7 +19,7 @@ import java.util.*;
 @NoArgsConstructor
 @Log4j2
 public class Finder {
-//    private final List<String> uaURLs = new ArrayList<>(Arrays.asList(
+    //    private final List<String> uaURLs = new ArrayList<>(Arrays.asList(
 //            "Djinni",
 //            "DOU",
 //            "WorkUa",
@@ -32,7 +33,8 @@ public class Finder {
             "DOU"
     ));
     private final List<String> ruURLs = new ArrayList<>(Arrays.asList(
-            "HeadHunter"
+            "HeadHunter",
+            "SuperJob"
     ));
 
     private Strategy strategy;
@@ -43,6 +45,7 @@ public class Finder {
 
     /**
      * Method tunes up a strategy which should be used for receiving
+     *
      * @param source defines which site will be used
      */
     private void tuneUpStrategy(String source) {
@@ -53,14 +56,14 @@ public class Finder {
             case "RabotaUa" -> setStrategy(new RabotaUaStrategy());
             case "LinkedIn" -> setStrategy(new LinkedInStrategy());
             case "HeadHunter" -> setStrategy(new HeadHunterStrategy());
+            case "SuperJob" -> setStrategy(new SuperJobStrategy());
             default -> throw new IllegalArgumentException("Unknown source has been received from parameters");
         }
     }
 
     /**
-     *
      * @param region defines a country
-     * @param query defines a query of searching
+     * @param query  defines a query of searching
      * @return a list of vacancies
      * @throws IOException when can't receive a web page
      */

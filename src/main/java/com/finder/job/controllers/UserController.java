@@ -31,41 +31,42 @@ public class UserController {
     }
 
     @GetMapping
-    public String redirectFromRoot(){
+    public String redirectFromRoot() {
         return "redirect:/search";
     }
 
     @GetMapping("/homepage")
-    public String homePage(){
+    public String homePage() {
         return "homePage";
     }
 
     @GetMapping("/search")
-    public String searchPage(){
+    public String searchPage() {
         return "search";
     }
 
     @GetMapping("/result")
-    public String redirectToSearch(){
+    public String redirectToSearch() {
         return "redirect:/search";
     }
+
     @PostMapping("/result")
     public String resultPage(@RequestParam(required = false, value = "search") String query,
                              @RequestParam(required = false, value = "page") Integer page,
                              @RequestParam(required = false, value = "oldQuery") Boolean oldQuery,
+                             @RequestParam(required = false, value = "region") String region,
                              Model model) throws IOException {
-        String testRegion = "RU";//todo only for test purpose!
         List<Vacancy> vacancies;
-        if(oldQuery) {
+        if (oldQuery) {
             vacancies = tempStorage.getData();
         } else {
-            vacancies = finder.getVacancies(testRegion, query);
+            vacancies = finder.getVacancies(region, query);
             tempStorage.storeData(vacancies);
         }
         model.addAttribute("count", vacancies.size());
         int pages = paginator.getPagesCount(vacancies);
 
-        vacancies = page == null ? paginator.getPage(0, vacancies) : paginator.getPage(page-1, vacancies);
+        vacancies = page == null ? paginator.getPage(0, vacancies) : paginator.getPage(page - 1, vacancies);
 
         model.addAttribute("vacancies", vacancies);
         model.addAttribute("pages", pages);

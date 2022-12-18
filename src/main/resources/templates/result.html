@@ -31,7 +31,7 @@
             <p class="description" th:text="${vacancy.getDescription()}">Naranga is a leading franchise operation
                 management software. It is a part of the Edible Brands group of companies based in the USA.</p><br>
             <span class="link">
-                        <button class="btn"><i class="fa fa-link"> Откликнуться!<a href="${vacancy.getLink()}"></a></i></button>
+                        <button class="btn"><i class="fa fa-link"> Откликнуться!<a th:href="${vacancy.getLink()}"></a></i></button>
             </span>
         </li>
     </ul>

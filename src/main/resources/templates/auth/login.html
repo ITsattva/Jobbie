@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -20,7 +20,13 @@
         </div>
 
         <button type="submit" class="btn">Sign in</button>
-        <button type="submit" class="btn"><i class="fa fa-google fa-fw"></i> Login with Google+</button>
+        <div>
+            <h4><a th:href="@{/oauth2/authorization/facebook}">Login with Facebook</a></h4>
+        </div>
+        <div>
+            <h4><a th:href="@{/oauth2/authorization/google}">Login with Google</a></h4>
+        </div>
+<!--        <button type="submit" class="btn"><i class="fa fa-google fa-fw"></i> Login with Google</button>-->
 
         <!-- <a href="#" class="btn">
             <i class="fa fa-google fa-fw"></i> Login with Google+

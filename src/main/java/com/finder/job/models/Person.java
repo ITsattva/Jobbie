@@ -31,8 +31,6 @@ public class Person {
     private String username;
 
     @Column
-    @NotNull
-    @NotBlank
     private String password;
 
     @NotNull
@@ -42,4 +40,8 @@ public class Person {
 
     @OneToMany(mappedBy = "person")
     private List<Skill> skills;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "auth_type")
+    private AuthenticationType authType;
 }

@@ -1,14 +1,14 @@
 package com.finder.job.models;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j;
+import lombok.*;
 import lombok.extern.log4j.Log4j2;
 
 import javax.persistence.*;
 
+@AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Table(name = "skill")
 @Entity
 @Log4j2

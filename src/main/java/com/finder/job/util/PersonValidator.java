@@ -29,8 +29,8 @@ public class PersonValidator implements Validator {
         if (target.getClass().equals(PersonRegistrationForm.class)) {
             PersonRegistrationForm person = (PersonRegistrationForm) target;
 
-            if (personRepository.findPersonByUsername(person.getUsername()).isPresent()) {
-                errors.rejectValue("username", "", "This username is already taken! Try to use another");
+            if (personRepository.findByEmail(person.getEmail()).isPresent()) {
+                errors.rejectValue("email", "", "This email is already taken! Try to use another");
             }
         } else if (target.getClass().equals(PersonRegistrationForm.class)) {
             PersonRegistrationForm user = (PersonRegistrationForm) target;

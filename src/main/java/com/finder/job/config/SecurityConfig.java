@@ -1,9 +1,7 @@
 package com.finder.job.config;
 
-import com.finder.job.models.Person;
-import com.finder.job.models.SecurityUser;
-import com.finder.job.repositories.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.finder.job.security.oauth.CustomOAuth2UserService;
+import com.finder.job.security.oauth.OAuthLoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,12 +10,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 @SuppressWarnings("deprecation")
 @Configuration
@@ -25,10 +20,13 @@ import org.springframework.stereotype.Service;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
+    private final CustomOAuth2UserService oauth2UserService;
+    private final OAuthLoginSuccessHandler oauthLoginSuccessHandler;
 
-
-    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
+    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, CustomOAuth2UserService oauth2UserService, OAuthLoginSuccessHandler oauthLoginSuccessHandler) {
         this.userDetailsService = userDetailsService;
+        this.oauth2UserService = oauth2UserService;
+        this.oauthLoginSuccessHandler = oauthLoginSuccessHandler;
     }
 
     @Override
@@ -38,12 +36,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/*").permitAll()
                 .antMatchers("/auth/*/*").permitAll()
-                .anyRequest()
-                .authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/auth/login").permitAll()
-                .defaultSuccessUrl("/auth/success").permitAll();
+                .defaultSuccessUrl("/auth/success").permitAll()
+                .and()
+                .oauth2Login()
+                .loginPage("/login")
+                .userInfoEndpoint()
+                .userService(oauth2UserService)
+                .and()
+                .successHandler(oauthLoginSuccessHandler)
+                .and()
+                .logout()
+                .logoutSuccessUrl("/auth/login")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
 
     }
 

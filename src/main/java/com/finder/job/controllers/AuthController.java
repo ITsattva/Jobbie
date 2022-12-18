@@ -1,18 +1,12 @@
 package com.finder.job.controllers;
 
 import com.finder.job.dto.PersonRegistrationForm;
-import com.finder.job.models.Person;
 import com.finder.job.services.PersonService;
 import com.finder.job.util.PersonValidator;
-import lombok.extern.log4j.Log4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 
 
@@ -56,6 +50,7 @@ public class AuthController {
 
         return "/auth/registration";
     }
+
     @PostMapping("/registration")
     public String registrationPersonDone(@Valid @ModelAttribute("form") PersonRegistrationForm form, BindingResult bindingResult) {
 
@@ -63,7 +58,7 @@ public class AuthController {
 
 
         if (bindingResult.hasErrors())
-            return "registration";
+            return "/auth/registration";
 
         personService.registration(form);
 

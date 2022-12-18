@@ -2,6 +2,7 @@ package com.finder.job.services;
 
 import com.finder.job.dto.PersonRegistrationForm;
 import com.finder.job.mapper.PersonMapper;
+import com.finder.job.models.AuthenticationType;
 import com.finder.job.models.Person;
 import com.finder.job.repositories.PersonRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +16,6 @@ public class PersonService {
     private final PasswordEncoder passwordEncoder;
     private final PersonRepository personRepository;
 
-
     public PersonService(PersonMapper personMapper, PasswordEncoder passwordEncoder, PersonRepository personRepository) {
         this.personMapper = personMapper;
         this.passwordEncoder = passwordEncoder;
@@ -25,6 +25,7 @@ public class PersonService {
     public void registration(PersonRegistrationForm form) {
         Person person = personMapper.mapFormToPerson(form);
         person.setPassword(passwordEncoder.encode(person.getPassword()));
+        person.setAuthType(AuthenticationType.DATABASE);
         personRepository.save(person);
     }
 

@@ -50,6 +50,7 @@ public class AuthController {
 
         return "/auth/registration";
     }
+
     @PostMapping("/registration")
     public String registrationPersonDone(@Valid @ModelAttribute("form") PersonRegistrationForm form, BindingResult bindingResult) {
 
@@ -57,7 +58,7 @@ public class AuthController {
 
 
         if (bindingResult.hasErrors())
-            return "registration";
+            return "/auth/registration";
 
         personService.registration(form);
 

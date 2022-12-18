@@ -10,10 +10,21 @@
     <img class="logo" src="logo.png"><br/>
 
     <form th:method="post" th:action="@{/result}">
-    <input id="search" type="text" name="search" placeholder="Search.."><br>
-    <div class="tooltip">Глубокий поиск?<span class="tooltiptext">Этот вид поиска может занять некоторое время..</span></div>
-    <label class="switch"><input type="checkbox" onclick="myFunction()"><span class="slider round"></span></label><br>
-    <button class="button">Найти работу</button>
+        <input id="search" type="text" name="search" placeholder="Search.."><br>
+        <div class="tooltip">Глубокий поиск?<span
+                class="tooltiptext">Этот вид поиска может занять некоторое время..</span></div>
+        <label class="switch">
+            <input type="checkbox" onclick="myFunction()">
+            <span class="slider round"></span>
+        </label><br>
+        <div>
+            <a>Выберите регион поиска: </a>
+            <input type="radio" id="UA" name="region" value="UA" checked>
+            <label for="UA">UA</label>
+            <input type="radio" id="RU" name="region" value="RU">
+            <label for="RU">RU</label>
+        </div>
+        <button class="button">Найти работу</button>
         <input type="text" hidden name="oldQuery" value="false">
         <input type="text" hidden name="page" value="1">
     </form>

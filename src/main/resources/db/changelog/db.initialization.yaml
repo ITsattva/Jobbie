@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: abdulsaidov
+      changes:
+        - sqlFile:
+            dbms: postgresql
+            encoding: utf8
+            endDelimiter: \n/\s*\n|\n/\s*$
+            path: db/changelog/create-person-skill-tables.sql
+      rollback:
+        - sql:
+            sql: DROP TABLE skill; DROP TABLE person;
